@@ -1,133 +1,107 @@
-// src/components/customerdashboard/CustomerDashboard.jsx
-import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import "./CustomerDashboard.css";
-import { io } from "socket.io-client";
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './CustomerDashboard.css';
 
-const socket = io("http://localhost:5000");
+// --- Image Imports ---
+import tacoImage from '../../assets/taco.jpg';
+import grilledImage from '../../assets/grilled.jpg';
+import burgerImage from '../../assets/burger.jpg';
+import pizzaImage from '../../assets/pizza.jpg';
+import biryaniImage from '../../assets/biryani.jpg';
+import curryImage from '../../assets/curry.jpg';
+import sushiImage from '../../assets/sushi.jpg';
+import pastaImage from '../../assets/pasta.jpg';
+
+// --- Restaurant Data ---
+const restaurants = [
+    { id: 1, name: 'Jammin Java', rating: 4.5, time: '20-25 min', price: '₹', tags: ['Mexican', 'Snacks', 'Drinks'], image: tacoImage },
+    { id: 2, name: 'Zakir Tikka', rating: 4.7, time: '15-20 min', price: '₹₹', tags: ['BBQ', 'Pakistani', 'Spicy'], image: grilledImage },
+    { id: 3, name: 'Baradari', rating: 4.2, time: '10-15 min', price: '₹', tags: ['Burgers', 'Fast Food', 'Drinks'], image: burgerImage },
+    { id: 4, name: 'Delish', rating: 4.6, time: '20-30 min', price: '₹₹', tags: ['Pizza', 'Cheesy', 'Italian'], image: pizzaImage },
+    { id: 5, name: 'Mastani', rating: 4.8, time: '25-30 min', price: '₹₹₹', tags: ['Biryani', 'Desi', 'Spicy'], image: biryaniImage },
+    { id: 6, name: 'Juice zone', rating: 4.3, time: '20-25 min', price: '₹₹', tags: ['Chinese', 'Noodles', 'Dumplings'], image: curryImage },
+    { id: 7, name: 'Super Store', rating: 4.1, time: '10-15 min', price: '₹', tags: ['Coffee', 'Cafe', 'Bakery'], image: tacoImage },
+    { id: 8, name: 'Green Olive', rating: 4.4, time: '15-20 min', price: '₹₹', tags: ['Healthy', 'Salads', 'Vegan'], image: grilledImage },
+    { id: 9, name: 'Khokha Store', rating: 4.6, time: '5-10 min', price: '₹', tags: ['Ice Cream', 'Dessert', 'Cold'], image: sushiImage },
+    { id: 10, name: 'Bunker', rating: 4.5, time: '20-25 min', price: '₹₹', tags: ['Italian', 'Pasta', 'Cheesy'], image: pastaImage },
+];
+
+// Restaurant Card Component
+function RestaurantCard({ restaurant, onClick }) {
+    return (
+        <div
+            className="customer-dashboard-card"
+            onClick={() => onClick(restaurant)}
+            style={{ cursor: 'pointer' }}
+        >
+            <img src={restaurant.image} alt={restaurant.name} />
+            <div className="customer-dashboard-card-body">
+                <div className="customer-dashboard-card-title">{restaurant.name}</div>
+                <div className="customer-dashboard-card-sub">
+                    ⭐ {restaurant.rating} · {restaurant.time} · {restaurant.price}
+                </div>
+                <div className="customer-dashboard-tags">
+                    {restaurant.tags.map((tag) => (
+                        <div key={tag} className="customer-dashboard-tag">{tag}</div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
 
 function CustomerDashboard() {
-  const [activeRequest, setActiveRequest] = useState(null);
-  const [pastRequests, setPastRequests] = useState([]);
-  const [bids, setBids] = useState([]);
-  const [selectedBid, setSelectedBid] = useState(null);
-
-  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // ✅ Memoized to avoid ESLint warning
-  const fetchRequests = useCallback(async () => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/requests/user/${userId}`);
-      const data = await res.json();
-      if (!Array.isArray(data)) return;
-
-      const active = data.find((r) => r.status !== "completed" && r.status !== "canceled");
-      const past = data.filter((r) => r.status === "completed");
-
-      setActiveRequest(active);
-      setPastRequests(past);
-
-      if (active) {
-        setSelectedBid(active.bids.find((b) => b._id === active.selectedBid));
-        if (!active.selectedBid) {
-          const bidRes = await fetch(`http://localhost:5000/api/requests/${active._id}/bids`);
-          const bidData = await bidRes.json();
-          setBids(bidData);
-        }
-      }
-    } catch (err) {
-      console.error("Error fetching requests:", err);
-    }
-  }, [userId]);
-
-  const handleAcceptBid = async (bidId) => {
-    try {
-      const res = await fetch("http://localhost:5000/api/requests/select-bid", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, bidId }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success("Bid accepted!");
-        socket.emit("bid_accepted", { requestId: activeRequest._id });
-        fetchRequests();
-      } else {
-        toast.error(data.msg || "Failed to accept bid");
-      }
-    } catch (err) {
-      toast.error("Error accepting bid");
-      console.error(err);
-    }
+  const handleRestaurantClick = (restaurant) => {
+      console.log("Restaurant clicked:", restaurant.name);
+      navigate('/customer-requests', { state: { selectedRestaurant: restaurant } });
   };
 
-  useEffect(() => {
-    fetchRequests();
-
-    socket.on("new_bid", fetchRequests);
-    socket.on("request_status_updated", fetchRequests);
-
-    return () => {
-      socket.off("new_bid", fetchRequests);
-      socket.off("request_status_updated", fetchRequests);
-    };
-  }, [fetchRequests]);
+  const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+  };
 
   return (
-    <div className="dashboard-container">
-      <h2>Welcome back to Campus Cart 👋</h2>
-
-      {activeRequest ? (
-        <div className="request-card">
-          <h3>🟡 Active Request</h3>
-          <p>{activeRequest.pickup} → {activeRequest.destination}</p>
-          <p>Status: {activeRequest.status}</p>
-
-          {selectedBid ? (
-            <div>
-              <h4>✅ Accepted Bid</h4>
-              <p><strong>Price:</strong> Rs {selectedBid.price}</p>
-              <p><strong>ETA:</strong> {selectedBid.eta}</p>
+    <div className="customer-dashboard-container">
+        {/* Header */}
+        <header className="customer-dashboard-header">
+            <div className="customer-dashboard-logo">Campus Cart</div>
+            <div className="customer-dashboard-nav-icons">
+                <span>🔔</span>
+                <span>⚙️</span>
+                <span>🚪</span>
             </div>
-          ) : (
-            <>
-              <h4>📨 Incoming Bids</h4>
-              {bids.length === 0 ? (
-                <p>No bids submitted yet.</p>
-              ) : (
-                <ul>
-                  {bids.map((bid) => (
-                    <li key={bid._id}>
-                      <p><strong>Price:</strong> Rs {bid.price}</p>
-                      <p><strong>ETA:</strong> {bid.eta}</p>
-                      <button onClick={() => handleAcceptBid(bid._id)}>Accept Bid</button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
-          )}
-        </div>
-      ) : (
-        <button className="primary-btn" onClick={() => navigate("/customer-requests")}>
-          Make a Delivery Request
-        </button>
-      )}
+        </header>
 
-      <h3>✅ Past Deliveries</h3>
-      {pastRequests.length === 0 ? (
-        <p>No past deliveries yet.</p>
-      ) : (
-        <ul>
-          {pastRequests.map((req) => (
-            <li key={req._id}>
-              {req.pickup} → {req.destination} — Delivered
-            </li>
-          ))}
-        </ul>
-      )}
+        {/* Search Container */}
+        <div className="customer-dashboard-search-container">
+            <input 
+                type="text" 
+                placeholder="Search restaurants..." 
+                value={searchQuery} 
+                onChange={handleSearchChange}
+            />
+        </div>
+
+        {/* Welcome Text */}
+        <div className="customer-dashboard-welcome-text">
+            <h1>Welcome!</h1>
+            <p>Your campus, your delivery, your way</p>
+        </div>
+
+        {/* Restaurant List */}
+        <div className="customer-dashboard-restaurant-list">
+            {restaurants.filter((resto) => resto.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                .map((resto) => (
+                    <RestaurantCard
+                        key={resto.id}
+                        restaurant={resto}
+                        onClick={handleRestaurantClick}
+                    />
+                ))}
+        </div>
     </div>
   );
 }

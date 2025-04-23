@@ -1,5 +1,4 @@
-/* src/components/navbar/Navbar.css */
-
+/* 
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -23,7 +22,7 @@
   align-items: center;
 }
 
-/* Settings button */
+
 .settings-btn {
   background-color: #262626;
   color: white;
@@ -39,7 +38,7 @@
   color: #f0c040;
 }
 
-/* Logout button */
+
 .logout-btn {
   background-color: #262626;
   color: white;
@@ -54,4 +53,4 @@
 .logout-btn:hover {
   background-color: #3a3a3a;
   color: #f0c040;
-}
+} */

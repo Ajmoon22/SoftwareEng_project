@@ -1,67 +1,122 @@
-.dashboard-container {
-    padding: 40px;
-    font-family: "Poppins", sans-serif;
-    max-width: 800px;
-    margin: auto;
-    text-align: center;
-  }
-  
-  .dashboard-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-  }
-  
-  .dashboard-actions button {
-    padding: 12px 20px;
-    background-color: #f77f00;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .dashboard-actions button:hover {
-    background-color: #d65c00;
-  }
-  
-  .dashboard-section {
-    margin-top: 40px;
-    text-align: left;
-  }
-  
-  .dashboard-section h3 {
-    color: #003049;
-  }
-  
-  .dashboard-section ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .dashboard-section li {
-    background: #f1f1f1;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .dashboard-section li button {
-    background-color: #2a9d8f;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-  
-  .dashboard-section li button:hover {
-    background-color: #217a6c;
-  }
-  
+/* Basic Reset & Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Styles for the component itself */
+.customer-dashboard-header {
+  display: flex; /* Enables Flexbox for horizontal alignment */
+  justify-content: space-between; /* Pushes logo and icons to opposite ends */
+  align-items: center; /* Vertically aligns items in the middle */
+  background-color: #1e3a8a; /* Blue background */
+  color: white; /* White text */
+  position: static;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+}
+
+/* Search Container */
+.customer-dashboard-search-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  width: 80%; /* Adjust width of search bar */
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.customer-dashboard-search-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #1e3a8a;
+  outline: none;
+}
+
+.customer-dashboard-search-container input:focus {
+  border-color: #4f74db; /* Focused border color */
+}
+
+.customer-dashboard-welcome-text {
+  background-color: white;
+}
+
+.customer-dashboard-welcome-text h1 {
+  font-size: 2rem;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.customer-dashboard-welcome-text p {
+  color: #3b82f6;
+  font-size: 1rem;
+}
+
+.customer-dashboard-restaurant-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  background-color: white;
+}
+
+/* Card styles */
+.customer-dashboard-card {
+  background-color: #f8fafc;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 280px;
+  max-width: calc(33.33% - 1.4rem);
+}
+
+.customer-dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.customer-dashboard-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.customer-dashboard-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-dashboard-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1e3a8a;
+}
+
+.customer-dashboard-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.customer-dashboard-tag {
+  background-color: #e0e7ff;
+  color: #3730a3;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}

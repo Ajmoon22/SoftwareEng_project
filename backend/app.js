@@ -25,7 +25,12 @@ const io = new Server(server, {
 app.set("socketio", io);
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PATCH"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Connect to MongoDB
@@ -52,7 +57,7 @@ io.on("connection", (socket) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5005;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

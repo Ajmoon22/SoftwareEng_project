@@ -1,8 +1,7 @@
-// src/components/settings/Settings.jsx
 import React, { useState, useEffect } from "react";
-import "./Settings.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import "./Settings.css";
 
 export default function Settings() {
   const userId = localStorage.getItem("userId");
@@ -16,7 +15,7 @@ export default function Settings() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/settings/user/${userId}`);
+        const res = await fetch(`http://localhost:5005/api/settings/user/${userId}`);
         const data = await res.json();
         setUsername(data.username);
         setEmail(data.email);
@@ -91,24 +90,42 @@ export default function Settings() {
     <div className="settings-container">
       <h2>🛠️ Account Settings</h2>
 
-      <section>
+      {/* Update Name and Email Section */}
+      <section className="settings-section">
         <h3>Update Name & Email</h3>
-        <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Name" />
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <button onClick={updateUsernameAndEmail}>Update</button>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Name"
+          className="input-field"
+        />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          className="input-field"
+        />
+        <button onClick={updateUsernameAndEmail} className="settings-btn">
+          Update
+        </button>
       </section>
 
-      <section>
+      {/* Change Password Section */}
+      <section className="settings-section">
         <h3>Change Password</h3>
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="New Password"
+          className="input-field"
         />
-        <button onClick={updatePassword}>Change Password</button>
+        <button onClick={updatePassword} className="settings-btn">
+          Change Password
+        </button>
       </section>
 
+      {/* Delete Account Section */}
       <section className="danger-zone">
         <h3>⚠️ Delete Account</h3>
         <input
@@ -116,7 +133,11 @@ export default function Settings() {
           value={deletePassword}
           onChange={(e) => setDeletePassword(e.target.value)}
           placeholder="Confirm Password"
+          className="input-field"
         />
+        <div className="warning">
+          <p>Warning: This action is irreversible.</p>
+        </div>
         <button className="delete-btn" onClick={deleteAccount}>
           Delete My Account
         </button>

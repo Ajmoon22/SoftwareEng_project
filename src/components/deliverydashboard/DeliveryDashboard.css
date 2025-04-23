@@ -1,31 +1,345 @@
-.delivery-dashboard {
-  padding: 2rem;
+/* src/components/deliverydashboard/DeliveryDashboard.css */
+
+/* Base styles */
+.delivery-dashboard-page { /* Scoping styles to the component */
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #003366;
+}
+
+/* Header */
+.header { /* Changed from body selector */
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #0066cc; /* Blue header */
+  color: white;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0; /* Reset default margin */
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 0; /* Reset default margin */
+}
+
+/* Animation Area */
+.search-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem; /* Default padding */
+  background-color: #e6f2ff; /* Light blue background */
+}
+
+.rider-loader {
+  text-align: center;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.rider-icon {
+  font-size: 3rem; /* Size of the emoji/icon */
+  display: inline-block; /* Allows transform */
+  animation: ride 1.5s ease-in-out infinite alternate; /* Added alternate */
+}
+
+.search-animation p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #003366; /* Dark blue text */
+  font-weight: 500;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* Rider bobbing animation */
+@keyframes ride {
+  from { transform: translateY(0px) rotate(-3deg); } /* Slight rotate */
+  to   { transform: translateY(-8px) rotate(3deg); } /* Slight rotate */
+}
+
+
+/* Offers section */
+.offers {
+  padding: 2rem 1rem; /* Padding around offers */
+  max-width: 1000px; /* Max width of the offers container */
+  margin: auto; /* Center the container */
+}
+
+.offers h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 0; /* Reset default */
+  margin-bottom: 1.5rem; /* Space below heading */
+  color: #004080; /* Slightly darker blue */
+}
+
+/* Grid for offer cards */
+.offer-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+  gap: 1.5rem; /* Space between cards */
+}
+
+/* Individual offer card */
+.offer-card {
+  border: 1px solid #cce0ff; /* Lighter border */
+  padding: 1.5rem;
+  border-radius: 12px; /* Rounded corners */
+  background-color: #f8faff; /* Very light blue background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04); /* Softer shadow */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
+  display: flex; /* Use flexbox for layout inside */
+  flex-direction: column; /* Stack content vertically */
+}
+
+.offer-card:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06); /* Enhanced shadow */
+}
+
+.offer-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #004080; /* Dark blue title */
+  margin-bottom: 0.5rem; /* Space below title */
+}
+
+.offer-card p {
+  font-size: 0.95rem;
+  margin-top: 0;
+  margin-bottom: 1rem; /* Space below description */
+  color: #335d8a; /* Softer text color */
+  line-height: 1.5; /* Improve readability */
+  flex-grow: 1; /* Allow description to take available space */
+}
+
+/* Bid Now button */
+.offer-card button {
+  background-color: #0066cc; /* Blue button */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem; /* Slightly larger font */
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  align-self: flex-start; /* Align button to the start (left) */
+  margin-top: auto; /* Push button to bottom if card heights vary */
+}
+
+.offer-card button:hover {
+  background-color: #004f99; /* Darker blue on hover */
+}
+
+/* Responsive Mobile */
+@media (max-width: 600px) {
+  .header h1 {
+      font-size: 2rem;
+  }
+   .header p {
+      font-size: 1rem;
+  }
+
+  .search-animation {
+      padding: 1.5rem 1rem; /* Adjust padding */
+  }
+   .search-animation p {
+      font-size: 0.95rem;
+  }
+
+
+  .offers {
+      padding: 1.5rem 1rem;
+  }
+   .offers h2 {
+      font-size: 1.6rem;
+  }
+
+
+  .offer-card {
+      padding: 1rem; /* Smaller padding */
+  }
+   .offer-card h3 {
+      font-size: 1.1rem;
+  }
+   .offer-card p {
+      font-size: 0.9rem;
+  }
+  .offer-card button {
+      width: 100%; /* Make button full width */
+      text-align: center; /* Center text */
+      padding: 0.7rem;
+  }
+}
+
+
+/* == Styles for Refresh Button == */
+.refresh-container {
+  text-align: center;
+  padding: 1rem 0;
+}
+.refresh-button {
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  background-color: #e6f2ff;
+  color: #004080;
+  border: 1px solid #0066cc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.refresh-button:hover {
+  background-color: #cce0ff;
+}
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* == Styles for Assigned Deliveries Section == */
+.assigned-deliveries {
+  padding: 2rem 1rem;
   max-width: 1000px;
   margin: auto;
+  border-top: 2px solid #e6f2ff; /* Separator line */
 }
 
-.requests-container {
+.assigned-deliveries h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #004080;
+}
+
+.assigned-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Assigned Card Styling - similar to offer-card but distinct */
+.assigned-card {
+  border: 1px solid #0066cc; /* Blue border */
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
 }
 
-.request-card {
-  background: #fdf6e3;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
-  flex: 1 1 300px;
+.assigned-card h4 {
+  margin-top: 0;
+  font-size: 1.15rem; /* Slightly smaller than offer title */
+  color: #003366; /* Darker blue */
+  margin-bottom: 0.7rem;
 }
 
-.status-buttons button {
-  margin-right: 0.5rem;
-  padding: 0.5rem;
+.assigned-card p {
+  font-size: 0.95rem;
+  margin: 0.3rem 0; /* Reduced vertical margin */
+  color: #333; /* Darker grey text */
+  line-height: 1.4;
+}
+.assigned-card p.description {
+  flex-grow: 1; /* Allow description to grow */
+  margin-bottom: 1rem;
+}
+
+/* Status line styling */
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem !important; /* Add space before buttons */
+}
+.status-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px; /* Pill shape */
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+/* Define colors for different statuses */
+.status-confirmed { background-color: #e9ecef; color: #6c757d; }
+.status-picked-up { background-color: #cce0ff; color: #004080; }
+.status-on-the-way { background-color: #fff3b3; color: #665c00; }
+.status-completed { background-color: #d4edda; color: #155724; }
+.status-delivered { background-color: #d4edda; color: #155724; }
+.status-canceled { background-color: #f8d7da; color: #721c24; }
+.status-pending { background-color: #fef3cd; color: #856404; }
+.status-unknown { background-color: #e2e3e5; color: #383d41; }
+
+
+/* Status update buttons container */
+.status-actions {
+  margin-top: auto; /* Push buttons to bottom */
+  padding-top: 1rem; /* Space above buttons */
+}
+.status-actions button {
+  width: 100%; /* Full width */
+  padding: 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.status-actions button.pickup { background-color: #007bff; }
+.status-actions button.pickup:hover { background-color: #0056b3; }
+.status-actions button.transit { background-color: #ffc107; color: #333;}
+.status-actions button.transit:hover { background-color: #e0a800; }
+.status-actions button.complete { background-color: #28a745; }
+.status-actions button.complete:hover { background-color: #1e7e34; }
+
+/* Text shown when no button applies */
+.status-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
 }
 
-button {
-  cursor: pointer;
+
+/* == End Assigned Styles == */
+
+
+/* == Responsive Mobile (Add/Merge) == */
+@media (max-width: 600px) {
+  /* ... keep existing header/animation/offer responsive styles ... */
+  .header h1 { font-size: 2rem; }
+  .header p { font-size: 1rem; }
+  .search-animation { padding: 1.5rem 1rem; }
+  .search-animation p { font-size: 0.95rem; }
+  .offers { padding: 1.5rem 1rem; }
+  .offers h2 { font-size: 1.6rem; }
+  .offer-card { padding: 1rem; }
+  .offer-card h3 { font-size: 1.1rem; }
+  .offer-card p { font-size: 0.9rem; }
+  .offer-card button { width: 100%; text-align: center; padding: 0.7rem; }
+
+  /* Responsive for Assigned */
+  .assigned-deliveries { padding: 1.5rem 1rem; }
+  .assigned-deliveries h2 { font-size: 1.6rem; }
+  .assigned-card { padding: 1rem; }
+  .assigned-card h4 { font-size: 1.05rem; }
+  .assigned-card p { font-size: 0.9rem; }
+  .status-actions button { padding: 0.6rem; font-size: 0.9rem; }
+
 }

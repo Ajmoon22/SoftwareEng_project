@@ -20,14 +20,14 @@ body {
 /* General container for content */
 .container {
   max-width: 400px;
-  padding: 20px;
+
 }
 
 /* Heading styles */
 h1 {
   font-size: 32px;
   font-weight: bold;
-  color: #d84315; /* Dark orange */
+  color: rgb(85, 85, 204); /* Dark orange */
 }
 
 p {
