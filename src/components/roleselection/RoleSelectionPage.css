@@ -14,34 +14,89 @@ main {
   flex-grow: 1;
 }
 
-/* Header */
-header {
-  background-color: #ffffff;
-  border-top: 2px solid #1453f3 !important; /* Blue border at the top */
-  color: white;
-  padding: 15px 40px;
+/* Overall Header Styling */
+.customer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
+  background-color: #ffffff; /* White background */
+  color: #1e3a8a; /* Dark blue text */
+  padding: 0rem 2rem; /* Use padding from container */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem; /* Space below header */
+  /* REMOVED padding-bottom: 20rem; */
+  /* REMOVED width: 100%; (implicit) */
+  /* REMOVED position, top, z-index (defaults are fine) */
 }
-
-/* Logo */
+/* Logo Styling */
 .customer-dashboard-logo {
-  font-weight: 800;
-  font-size: 1.7rem;
-  color: #f6f8fa;
+  font-size: 1.5rem; /* Make logo text larger */
+  font-weight: bold;
+  color: blue;
+  /* If using an image/svg logo:
+   img, svg { height: 35px; width: auto; } */
 }
 
-/* Settings and Logout Buttons */
-.customer-dashboard-nav-icons {
+/* Navigation Container */
+.customer-dashboard-nav {
   display: flex;
-  gap: 20px; /* Space between buttons */
+  align-items: center;
+  gap: 1rem; /* Add space between the buttons */
 }
+
+/* Button Styling */
+.nav-button {
+  display: flex; /* Align icon and text */
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  background-color: transparent; /* Make background transparent */
+  color: #ffffff; /* White text */
+  border: 1px solid #ffffff; /* White border */
+  padding: 0.5rem 1rem; /* Padding inside the button */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Smooth transitions */
+}
+
+/* Icon Styling (within buttons) */
+.nav-icon {
+  font-size: 1.1rem; /* Adjust icon size */
+  /* Vertically align icons slightly better if needed */
+  vertical-align: middle;
+}
+
+/* Button Hover Effect */
+.nav-button:hover {
+  background-color: #ffffff; /* White background on hover */
+  color: #2a75bb; /* Blue text on hover */
+}
+
+/* Optional: Focus style for accessibility */
+.nav-button:focus {
+  outline: 2px solid #ffffff; /* Add a clear focus ring */
+  outline-offset: 2px;
+}
+
+/* Hide text on very small screens if needed, showing only icons */
+/* @media (max-width: 500px) {
+  .nav-button span {
+    display: none;
+  }
+  .nav-button {
+    padding: 0.5rem;
+    border-radius: 50%; // Make it circular
+  }
+  .nav-icon {
+     margin-right: 0; // Remove margin if text is hidden
+  }
+} */
 
 .nav-button {
-  background-color: #0056b3;
-  color: white;
+  background-color: #ffffff;
+  color: #0056b3;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -52,7 +107,7 @@ header {
 }
 
 .nav-button:hover {
-  background-color: #4f74db;
+  background-color: #e9e9e9;
 }
 
 /* Main content styles */
@@ -143,34 +198,51 @@ footer {
   margin-top: auto;
   flex-shrink: 0;
 }
-
-@media (max-width: 900px) {
-  .roles {
-    gap: 30px;
-  }
-  .role-card {
-    width: 350px;
-  }
-}
-
 @media (max-width: 768px) {
-  header {
-    padding: 15px 20px;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  main {
-    padding: 40px 15px 30px;
+  /* Adjust header padding */
+  .customer-dashboard-header {
+    padding: 0923075rem 143782px; /* Reduced padding */
+    /* Removed flex-direction: column; to keep logo and nav side-by-side */
+    height: auto; /* Allow height to shrink if needed */
   }
 
   .role-card {
-    width: 90%;
+    width: 90%; /* Let cards take more width */
     max-width: 400px;
     padding: 25px 20px;
   }
-
   .role-icon {
     font-size: 2.5rem;
+  }
+}
+
+/* Small devices (Phones) */
+@media (max-width: 600px) {
+  /* Further adjust header padding */
+  .customer-dashboard-header {
+    padding: 10rem 5rem; /* Even less padding */
+  }
+
+  /* Optionally reduce logo size */
+  .customer-dashboard-logo {
+    font-size: 1.3rem;
+  }
+
+   /* Hide the text within nav buttons */
+  .nav-button span {
+    display: none;
+  }
+
+  /* Adjust button padding and gap for icon-only */
+  .nav-button {
+    padding: 0.6rem; /* Adjust padding */
+    gap: 0; /* Remove gap between icon and (hidden) text */
+    /* You could make them circular uncommenting below */
+    /* border-radius: 50%; */
+  }
+
+  /* Adjust gap between the buttons themselves */
+  .customer-dashboard-nav {
+    gap: 0.5rem;
   }
 }

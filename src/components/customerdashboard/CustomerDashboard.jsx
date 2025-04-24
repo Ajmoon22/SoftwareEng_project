@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Keep this import
 import './CustomerDashboard.css';
+import { FiSettings, FiLogOut } from 'react-icons/fi';
 
 // --- Image Imports ---
 import tacoImage from '../../assets/taco.jpg';
@@ -12,7 +13,7 @@ import curryImage from '../../assets/curry.jpg';
 import sushiImage from '../../assets/sushi.jpg';
 import pastaImage from '../../assets/pasta.jpg';
 
-// --- Restaurant Data ---
+// --- Restaurant Data --
 const restaurants = [
     { id: 1, name: 'Jammin Java', rating: 4.5, time: '20-25 min', price: '₹', tags: ['Mexican', 'Snacks', 'Drinks'], image: tacoImage },
     { id: 2, name: 'Zakir Tikka', rating: 4.7, time: '15-20 min', price: '₹₹', tags: ['BBQ', 'Pakistani', 'Spicy'], image: grilledImage },
@@ -27,7 +28,9 @@ const restaurants = [
 ];
 
 // Restaurant Card Component
+// *** Removed handleSettingsClick from here - it doesn't belong in the card ***
 function RestaurantCard({ restaurant, onClick }) {
+    
     return (
         <div
             className="customer-dashboard-card"
@@ -50,60 +53,87 @@ function RestaurantCard({ restaurant, onClick }) {
     );
 }
 
+
 function CustomerDashboard() {
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate(); // *** Define navigate here using the hook ***
+    const [searchQuery, setSearchQuery] = useState('');
 
-  const handleRestaurantClick = (restaurant) => {
-      console.log("Restaurant clicked:", restaurant.name);
-      navigate('/customer-requests', { state: { selectedRestaurant: restaurant } });
-  };
+    // --- Define handlers within the CustomerDashboard component ---
 
-  const handleSearchChange = (e) => {
-      setSearchQuery(e.target.value);
-  };
+    // Function to handle Settings navigation
+    const handleSettingsClick = () => {
+        console.log("Navigating to Settings...");
+        navigate("/settings"); // Now navigate is defined in this scope
+    };
 
-  return (
-    <div className="customer-dashboard-container">
-        {/* Header */}
-        <header className="customer-dashboard-header">
-            <div className="customer-dashboard-logo">Campus Cart</div>
-            <div className="customer-dashboard-nav-icons">
-                <span>🔔</span>
-                <span>⚙️</span>
-                <span>🚪</span>
+    // Function to handle Logout
+    const handleLogoutClick = () => {
+        console.log("Logging out...");
+        // Optional: Clear user data from localStorage if needed
+        // localStorage.removeItem("username");
+        // localStorage.removeItem("role");
+        navigate("/login"); // Navigate to Login page
+    };
+
+    // Function to handle clicking on a restaurant card
+    const handleRestaurantClick = (restaurant) => {
+        console.log("Restaurant clicked:", restaurant.name);
+        navigate('/customer-requests', { state: { selectedRestaurant: restaurant } });
+    };
+
+    // Function to handle changes in the search input
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    
+
+    // --- Component Render ---
+    return (
+        <div className="customer-dashboard-container">
+            {/* Header */}
+            <div className="customer-dashboard-header">
+                <div className="customer-dashboard-logo">
+                    Campus Cart
+                </div>
+                <nav className="customer-dashboard-nav">
+                    {/* *** These onClick handlers now refer to functions defined above *** */}
+                    <button className="nav-button" onClick={handleSettingsClick} aria-label="Settings">
+                        <FiSettings className="nav-icon" />
+                        <span>Settings</span>
+                    </button>
+                    <button className="nav-button" onClick={handleLogoutClick} aria-label="Logout">
+                        <FiLogOut className="nav-icon" />
+                        <span>Logout</span>
+                    </button>
+                </nav>
             </div>
-        </header>
 
-        {/* Search Container */}
-        <div className="customer-dashboard-search-container">
-            <input 
-                type="text" 
-                placeholder="Search restaurants..." 
-                value={searchQuery} 
-                onChange={handleSearchChange}
-            />
-        </div>
 
-        {/* Welcome Text */}
-        <div className="customer-dashboard-welcome-text">
-            <h1>Welcome!</h1>
-            <p>Your campus, your delivery, your way</p>
+            {/* Welcome Text */}
+            {/* Welcome Text & Bidding Button */}
+            <div className="customer-dashboard-welcome-container"> {/* New container for Flexbox */}
+                <div className="customer-dashboard-welcome-text">
+                    <h1>Welcome!</h1>
+                    <p>Your campus, your delivery, your way</p>
+                </div>
+            </div>
+            {/* Restaurant List */}
+            <div className="customer-dashboard-restaurant-list">
+                {restaurants.filter((resto) =>
+                        resto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        resto.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) // Optional: Also search tags
+                    )
+                    .map((resto) => (
+                        <RestaurantCard
+                            key={resto.id}
+                            restaurant={resto}
+                            onClick={handleRestaurantClick} // Correct handler passed here
+                        />
+                    ))}
+            </div>
         </div>
-
-        {/* Restaurant List */}
-        <div className="customer-dashboard-restaurant-list">
-            {restaurants.filter((resto) => resto.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                .map((resto) => (
-                    <RestaurantCard
-                        key={resto.id}
-                        restaurant={resto}
-                        onClick={handleRestaurantClick}
-                    />
-                ))}
-        </div>
-    </div>
-  );
+    );
 }
 
 export default CustomerDashboard;

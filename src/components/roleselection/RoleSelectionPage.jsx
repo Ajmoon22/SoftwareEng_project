@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./RoleSelectionPage.css"; // Make sure this CSS file contains the new styles
+import { FiSettings, FiLogOut } from 'react-icons/fi'; // Example icons from Feather Icons
 
 function RoleSelectionPage() {
   const navigate = useNavigate();
@@ -36,15 +37,22 @@ function RoleSelectionPage() {
   return (
     <>
       <main>
-        <header className="customer-dashboard-header">
-          <div className="customer-dashboard-logo">Campus Cart</div>
-          <div className="customer-dashboard-nav-icons">
-            {/* Settings button */}
-            <button className="nav-button" onClick={handleSettingsClick}>⚙️ Settings</button>
-            {/* Logout button */}
-            <button className="nav-button" onClick={handleLogoutClick}>🚪 Logout</button>
-          </div>
-        </header>
+      <div className="customer-header">
+        <div className="customer-dashboard-logo">
+          {/* You could replace this text with an actual SVG or Image logo */}
+          Campus Cart
+        </div>
+        <nav className="customer-dashboard-nav"> {/* Use <nav> for navigation elements */}
+          <button className="nav-button" onClick={handleSettingsClick} aria-label="Settings">
+            <FiSettings className="nav-icon" />
+            <span>Settings</span>
+          </button>
+          <button className="nav-button" onClick={handleLogoutClick} aria-label="Logout">
+            <FiLogOut className="nav-icon" />
+            <span>Logout</span>
+          </button>
+        </nav>
+      </div>
 
         <h1 style={{ color: "black" }}>Welcome, {username || "Guest"}!</h1>
         <p className="subtitle" style={{ color: "black" }}>Choose how you want to use Campus Cart today.</p>

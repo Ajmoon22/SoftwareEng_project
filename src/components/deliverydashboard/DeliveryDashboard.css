@@ -12,8 +12,8 @@
 .header { /* Changed from body selector */
   text-align: center;
   padding: 2rem 1rem;
-  background-color: #0066cc; /* Blue header */
-  color: white;
+  background-color: #ffffff; /* Blue header */
+  color: white
 }
 
 .header h1 {

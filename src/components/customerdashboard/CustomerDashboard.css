@@ -1,3 +1,5 @@
+/* CustomerDashboard.css */
+
 /* Basic Reset & Font */
 * {
   margin: 0;
@@ -6,69 +8,121 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Styles for the component itself */
-.customer-dashboard-header {
-  display: flex; /* Enables Flexbox for horizontal alignment */
-  justify-content: space-between; /* Pushes logo and icons to opposite ends */
-  align-items: center; /* Vertically aligns items in the middle */
-  background-color: #1e3a8a; /* Blue background */
-  color: white; /* White text */
-  position: static;
-  top: 0;
-  z-index: 0;
-  width: 100%;
+body {
+  background-color: #f0f4f8; /* Light background for the whole page */
 }
 
-/* Search Container */
+/* Main Container */
+.customer-dashboard-container {
+  padding: 1.5rem 2rem; /* Default padding for desktop */
+  max-width: 1400px; /* Optional: max width for very large screens */
+  margin: 0 auto; /* Center container */
+}
+
+/* Header Styles (incorporating previous fixes) */
+.customer-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* White background */
+  color: #1e3a8a; /* Dark blue text */
+  padding: 9rem 2rem; /* Use padding from container */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem; /* Space below header */
+  /* REMOVED padding-bottom: 20rem; */
+  /* REMOVED width: 100%; (implicit) */
+  /* REMOVED position, top, z-index (defaults are fine) */
+}
+
+.customer-dashboard-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.customer-dashboard-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #e0e7ff; /* Light blue background */
+  color: #3730a3; /* Darker blue text */
+  border: none; /* Remove border */
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600; /* Bolder */
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+  background-color: #c7d2fe; /* Slightly darker on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
+/* Search Container Styles */
 .customer-dashboard-search-container {
-  background-color: white;
-  padding: 10px;
-  border-radius: 8px;
-  margin: 10px 0;
-  width: 80%; /* Adjust width of search bar */
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 1.5rem; /* Space below search */
 }
 
 .customer-dashboard-search-container input {
   width: 100%;
-  padding: 10px;
+  padding: 12px 15px; /* Slightly more padding */
   font-size: 1rem;
   border-radius: 8px;
-  border: 2px solid #1e3a8a;
+  border: 1px solid #cbd5e1; /* Softer border */
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .customer-dashboard-search-container input:focus {
-  border-color: #4f74db; /* Focused border color */
+  border-color: #4f74db;
+  box-shadow: 0 0 0 3px rgba(79, 116, 219, 0.2); /* Focus ring */
 }
 
+/* Welcome Text Styles */
 .customer-dashboard-welcome-text {
-  background-color: white;
+  text-align: center; /* Center text */
+  margin-bottom: 2rem; /* Space below welcome */
+  background-color: transparent; /* No background needed */
 }
 
 .customer-dashboard-welcome-text h1 {
-  font-size: 2rem;
+  font-size: 2.2rem; /* Slightly larger */
   color: #1e3a8a;
-  font-weight: 600;
+  font-weight: 700; /* Bolder */
+  margin-bottom: 0.25rem;
 }
 
 .customer-dashboard-welcome-text p {
   color: #3b82f6;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Slightly larger */
 }
 
+/* Restaurant List Styles */
 .customer-dashboard-restaurant-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  background-color: white;
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 1.5rem; /* Default gap */
+  background-color: transparent; /* No background needed */
+  justify-content: center; /* Center items if space allows */
 }
 
-/* Card styles */
+/* Card Styles - BASE (Desktop - 3 columns) */
 .customer-dashboard-card {
-  background-color: #f8fafc;
+  background-color: #ffffff; /* White card background */
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -76,8 +130,9 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  flex: 1 1 280px;
-  max-width: calc(33.33% - 1.4rem);
+  flex: 1 1 280px; /* Base size, allows shrinking/growing */
+  max-width: calc(33.333% - 1rem); /* 3 columns, accounting for 1.5rem gap */
+  min-width: 280px; /* Prevent cards from becoming too small */
 }
 
 .customer-dashboard-card:hover {
@@ -87,7 +142,7 @@
 
 .customer-dashboard-card img {
   width: 100%;
-  height: 200px;
+  height: 180px; /* Slightly reduced height */
   object-fit: cover;
 }
 
@@ -95,20 +150,28 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Allow body to grow to fill space */
 }
 
 .customer-dashboard-card-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem; /* Adjusted size */
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   color: #1e3a8a;
 }
+
+.customer-dashboard-card-sub {
+  font-size: 0.9rem;
+  color: #475569; /* Grayish text */
+  margin-bottom: 0.75rem;
+}
+
 
 .customer-dashboard-tags {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: auto;
+  margin-top: auto; /* Push tags to bottom */
   padding-top: 0.5rem;
 }
 
@@ -120,3 +183,107 @@
   font-size: 0.75rem;
   font-weight: 500;
 }
+
+
+/* --- START: Media Queries for Responsiveness --- */
+
+/* Medium devices (Tablets, smaller laptops ~<1024px) */
+@media (max-width: 1024px) {
+  .customer-dashboard-container {
+    padding: 1rem 1.5rem; /* Reduce container padding */
+  }
+
+  .customer-dashboard-header {
+     padding: 0.75rem 1.5rem; /* Match container padding */
+  }
+
+  /* Adjust cards for 2 columns */
+  .customer-dashboard-card {
+    max-width: calc(50% - 0.75rem); /* 2 columns, accounting for 1.5rem gap */
+  }
+
+  .customer-dashboard-welcome-text h1 {
+    font-size: 2rem;
+  }
+  .customer-dashboard-welcome-text p {
+    font-size: 1rem;
+  }
+}
+
+
+/* Small devices (Portrait Tablets, Large Phones ~<768px) */
+@media (max-width: 768px) {
+  .customer-dashboard-container {
+    padding: 1rem; /* Further reduce container padding */
+  }
+   .customer-dashboard-header {
+     padding: 0.75rem 1rem; /* Match container padding */
+     margin-bottom: 1rem;
+   }
+
+  .customer-dashboard-restaurant-list {
+    gap: 1rem; /* Reduce gap between cards */
+  }
+
+  /* Adjust cards for 1 column */
+  .customer-dashboard-card {
+    max-width: 100%; /* Full width */
+    min-width: unset; /* Remove min-width */
+    flex-basis: auto; /* Let flexbox handle width */
+  }
+
+  .customer-dashboard-card img {
+    height: 160px; /* Further reduce image height */
+  }
+
+  .customer-dashboard-welcome-text h1 {
+    font-size: 1.8rem;
+  }
+   .customer-dashboard-welcome-text p {
+    font-size: 0.95rem;
+  }
+}
+
+
+/* Extra small devices (Phones ~<600px) */
+@media (max-width: 600px) {
+  /* Header adjustments - Icon only buttons */
+   .customer-dashboard-header {
+     padding: 70rem 1rem;
+     /* Flex direction column could be an option here if needed */
+     /* flex-direction: column; */
+     /* gap: 0.5rem; */
+   }
+
+  .customer-dashboard-logo {
+    font-size: 1.4rem; /* Smaller logo */
+  }
+
+  .nav-button span { /* Hide text */
+    display: none;
+  }
+
+  .nav-button { /* Adjust padding for icon-only */
+    padding: 0.6rem;
+    gap: 0;
+    /* Optional: Make circular */
+    /* border-radius: 50%; */
+  }
+
+  .customer-dashboard-nav {
+    gap: 0.5rem; /* Reduce gap between icons */
+  }
+
+  .customer-dashboard-container {
+      padding: 0.75rem;
+  }
+
+  .customer-dashboard-welcome-text h1 {
+    font-size: 1.6rem;
+  }
+   .customer-dashboard-welcome-text p {
+    font-size: 0.9rem;
+  }
+}
+
+/* --- END: Media Queries --- */
