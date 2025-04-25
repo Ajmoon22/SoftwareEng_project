@@ -1,4 +1,4 @@
-/* Apply base styles to body */
+/* Base styles */
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
@@ -9,16 +9,14 @@ body {
   flex-direction: column;
 }
 
-/* Ensure main content area can grow */
 main {
   flex-grow: 1;
 }
 
-/* Header */
+/* Header styles */
 header {
   background-color: #ffffff;
-  border-top: 2px solid #1453f3 !important; /* Blue border at the top */
-  color: white;
+  border-top: 2px solid #1453f3;
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -26,17 +24,16 @@ header {
   flex-shrink: 0;
 }
 
-/* Logo */
 .customer-dashboard-logo {
   font-weight: 800;
   font-size: 1.7rem;
   color: #f6f8fa;
 }
 
-/* Settings and Logout Buttons */
 .customer-dashboard-nav-icons {
   display: flex;
-  gap: 20px; /* Space between buttons */
+  gap: 20px;
+  margin-left: auto; /* Pushes the buttons to the right */
 }
 
 .nav-button {
@@ -67,7 +64,7 @@ p.subtitle {
   font-size: 1.1rem;
 }
 
-/* Roles Section */
+/* Roles section styles */
 .roles {
   display: flex;
   flex-wrap: wrap;
@@ -90,23 +87,8 @@ p.subtitle {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  min-height: 350px; /* Ensures there's enough space to align button at the bottom */
+  min-height: 350px;
 }
-
-.select-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: auto; /* Push button to the bottom */
-  width: 100%; /* Ensure the button stretches across the card */
-}
-
 
 .role-card:hover {
   transform: translateY(-6px);
@@ -131,10 +113,26 @@ p.subtitle {
   margin-bottom: 25px;
   line-height: 1.5;
 }
+
+.select-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+  width: 100%;
+}
+
 .select-btn:hover {
   background-color: #0056b3;
 }
 
+/* Footer styles */
 footer {
   text-align: center;
   padding: 20px;
@@ -144,33 +142,36 @@ footer {
   flex-shrink: 0;
 }
 
+/* Responsive styles for medium screens */
 @media (max-width: 900px) {
   .roles {
     gap: 30px;
   }
+
   .role-card {
     width: 350px;
   }
 }
 
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   header {
     padding: 15px 20px;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px; /* Adds spacing between header elements */
   }
 
   main {
-    padding: 40px 15px 30px;
+    padding: 40px 15px 30px; /* Adjusts padding for smaller screens */
   }
 
   .role-card {
-    width: 90%;
-    max-width: 400px;
-    padding: 25px 20px;
+    width: 90%; /* Ensures cards take up most of the screen width */
+    max-width: 400px; /* Limits the maximum width of the cards */
+    padding: 25px 20px; /* Adjusts padding for smaller screens */
   }
 
   .role-icon {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Reduces icon size for smaller screens */
   }
 }

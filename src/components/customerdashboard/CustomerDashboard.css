@@ -6,67 +6,71 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Styles for the component itself */
+/* Customer Dashboard Container */
+.customer-dashboard-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Back Button */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #1e3a8a;
+  color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #3b82f6;
+}
+
+/* Header */
 .customer-dashboard-header {
-  display: flex; /* Enables Flexbox for horizontal alignment */
-  justify-content: space-between; /* Pushes logo and icons to opposite ends */
-  align-items: center; /* Vertically aligns items in the middle */
-  background-color: #1e3a8a; /* Blue background */
-  color: white; /* White text */
-  position: static;
-  top: 0;
-  z-index: 0;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #1e3a8a;
+  color: white;
 }
 
-/* Search Container */
-.customer-dashboard-search-container {
-  background-color: white;
-  padding: 10px;
-  border-radius: 8px;
-  margin: 10px 0;
-  width: 80%; /* Adjust width of search bar */
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+.customer-dashboard-logo {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-.customer-dashboard-search-container input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 2px solid #1e3a8a;
-  outline: none;
-}
-
-.customer-dashboard-search-container input:focus {
-  border-color: #4f74db; /* Focused border color */
-}
-
+/* Welcome Text */
 .customer-dashboard-welcome-text {
-  background-color: white;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .customer-dashboard-welcome-text h1 {
   font-size: 2rem;
   color: #1e3a8a;
-  font-weight: 600;
 }
 
 .customer-dashboard-welcome-text p {
   color: #3b82f6;
-  font-size: 1rem;
 }
 
+/* Restaurant List */
 .customer-dashboard-restaurant-list {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  background-color: white;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-/* Card styles */
+/* Card Styles */
 .customer-dashboard-card {
   background-color: #f8fafc;
   border-radius: 16px;
@@ -76,8 +80,8 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  flex: 1 1 280px;
-  max-width: calc(33.33% - 1.4rem);
+  width: 280px;
+  max-width: 100%;
 }
 
 .customer-dashboard-card:hover {
@@ -119,4 +123,23 @@
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+/* Search Container */
+.customer-dashboard-search-container {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.customer-dashboard-search-container input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #1e3a8a;
+  outline: none;
+}
+
+.customer-dashboard-search-container input:focus {
+  border-color: #4f74db;
 }
