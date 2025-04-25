@@ -1,0 +1,139 @@
+/* src/components/customerrequests/CustomerRequests.css */
+
+/* Base styles for the page (using form as root) */
+.customer-requests-page {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1f3c88;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.headd{
+  padding: 1pc;
+  color: #1f3c88;
+}
+header {
+  width: 100%;
+  background-color: #1f3c88;
+  color: white;
+  padding: 20px 10px;
+  text-align: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+header h1 { margin: 0; font-size: 2rem; }
+header p { margin: 5px 15px 0; font-size: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+.banner {
+  width: 100%; max-width: 600px; border-radius: 20px; margin: 20px auto; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.banner img { width: 100%; display: block; }
+
+.card {
+  background-color: white; padding: 30px; border-radius: 30px; text-align: center; max-width: 600px; width: 90%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 25px; box-sizing: border-box;
+}
+.card h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; color: #1f3c88; }
+.card h2 strong { color: #0d1b4a; }
+.card p { margin-bottom: 25px; color: #444; font-size: 0.95rem; line-height: 1.6; }
+
+/* Container for label + input pairs */
+.input-container {
+  width: 90%;
+  max-width: 450px; /* Slightly wider if needed */
+  margin: 0 auto 20px auto; /* Center container, space below */
+  text-align: left;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #1f3c88;
+}
+
+/* General text input styling */
+.text-input, .textarea-input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #1f3c88;
+  font-size: 1rem;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.text-input:focus, .textarea-input:focus {
+  outline: none;
+  border-color: #4a69bd;
+  box-shadow: 0 0 0 2px rgba(74, 105, 189, 0.3);
+}
+
+/* Specific styling for textarea */
+.textarea-input {
+  resize: vertical; /* Allow vertical resize */
+  min-height: 80px; /* Minimum height */
+}
+
+/* Bid Amount Input styling */
+.amount-input-display {
+  width: 100%; /* Match other inputs */
+  font-size: 1.8rem; /* Slightly smaller to fit better */
+  padding: 12px 15px; /* Match other inputs */
+  text-align: left; /* Align left like others */
+  border: 2px solid #1f3c88;
+  border-radius: 10px; /* Match other inputs */
+  background-color: #f8fafd;
+  color: #1f3c88;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.amount-input-display::placeholder { color: #a9b8d6; }
+
+/* Hide spinners for number input */
+.amount-input-display::-webkit-outer-spin-button,
+.amount-input-display::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.amount-input-display[type=number] { -moz-appearance: textfield; }
+
+/* Submit Button styles */
+.submit-request-button { /* Renamed class */
+  display: block;
+  width: 90%; /* Match input container width */
+  max-width: 450px; /* Match input container width */
+  margin: 30px auto 0 auto; /* Center button, space above */
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #1f3c88;
+  border: none;
+  border-radius: 10px; /* Match input rounding */
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+.submit-request-button:hover { background-color: #2a52af; }
+.submit-request-button:active { transform: scale(0.98); }
+.submit-request-button:disabled { background-color: #cccccc; color: #777777; cursor: not-allowed; opacity: 0.8; }
+
+.footer-info {
+   margin-top: auto; padding: 20px; font-size: 0.9rem; text-align: center; color: #6c7ba3; width: 100%; box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  header h1 { font-size: 2.5rem; }
+  header p { font-size: 1.1rem; }
+  .card { padding: 40px; }
+}
+
+@media (max-width: 400px) {
+  header h1 { font-size: 1.8rem; }
+  header p { font-size: 0.9rem; }
+  .card { padding: 20px; }
+  .amount-input-display { font-size: 1.6rem; } /* Adjusted size */
+  .submit-request-button { padding: 12px 15px; font-size: 1rem; }
+}

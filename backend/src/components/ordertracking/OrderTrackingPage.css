@@ -1,0 +1,175 @@
+/* src/components/ordertracking/OrderTrackingPage.css */
+
+.order-tracking-page { /* Added root class */
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #ffffff;
+    color: #003366;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 1rem 1rem;
+    background-color: #0066cc;
+    color: white;
+    flex-shrink: 0;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 0;
+}
+
+/* Animation Section */
+.delivery-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: #ffffff;
+    animation: fadeIn 1s ease forwards;
+    flex-shrink: 0;
+}
+
+.delivery-loader {
+    text-align: center;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.delivery-icon {
+    font-size: 2rem;
+    display: inline-block; /* Needed for transform */
+    animation: bounce 1.5s ease-in-out infinite alternate; /* Added alternate */
+}
+
+.delivery-animation p {
+    margin-top: 0.8rem; /* Adjusted margin */
+    font-size: 1.1rem; /* Adjusted size */
+    color: #003366;
+    font-weight: 500;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Receipt Section */
+.receipt {
+    max-width: 600px;
+    width: 90%; /* Responsive */
+    background: #f9fbff; /* Very light background */
+    border: 1px solid #cce0ff; /* Lighter border */
+    border-radius: 16px;
+    margin: 1rem auto; /* Center receipt */
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 80, 0.05);
+    animation: fadeIn 1s ease 0.2s forwards; /* Delayed fade in */
+    opacity: 0; /* Start hidden */
+    transform: translateY(20px); /* Start lower */
+    flex-grow: 1; /* Allow receipt to take space if needed */
+}
+
+.receipt h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #004080; /* Darker blue heading */
+}
+
+.receipt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Space between items */
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+    padding: 0.7rem 1rem; /* Adjusted padding */
+    background-color: #ffffff;
+    border: 1px solid #d0e6ff; /* Light border */
+    border-radius: 8px;
+    font-size: 1rem;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 0.5rem; /* Space between key/value if they wrap */
+}
+
+.info-item strong {
+    color: #003366;
+    margin-right: 0.5rem; /* Space between key and value */
+    flex-shrink: 0; /* Prevent label from shrinking */
+}
+.info-item span {
+    text-align: right; /* Align value to the right */
+    word-break: break-word; /* Prevent long values overflowing */
+}
+
+/* Status Display */
+.status {
+    padding: 0.8rem 1rem; /* Adjusted padding */
+    text-align: center;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.05rem; /* Slightly larger status text */
+    /* Default background/color set dynamically via inline styles */
+    /* animation set dynamically via inline styles */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+/* Blinking animation definition (used via inline style) */
+@keyframes blink {
+    50% { opacity: 0.6; }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .receipt {
+        margin: 1rem;
+        padding: 1.5rem;
+        width: auto; /* Adjust width for smaller screens */
+    }
+
+    .info-item {
+       /* Keep flex-direction row, but allow wrap (already set) */
+       /* If stacking is preferred: */
+       /* flex-direction: column;
+       align-items: flex-start;
+       gap: 0.2rem; */
+    }
+     .info-item span {
+        text-align: left; /* Align value left when stacked */
+    }
+}

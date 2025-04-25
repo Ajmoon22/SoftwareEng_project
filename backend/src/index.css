@@ -1,0 +1,72 @@
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global body styling */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9c74f; /* Yellow background */
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+/* General container for content */
+.container {
+  max-width: 400px;
+
+}
+
+/* Heading styles */
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: rgb(85, 85, 204); /* Dark orange */
+}
+
+p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn {
+  background-color: #e76f51;
+  color: white;
+}
+
+.signup-btn {
+  background-color: white;
+  color: #e76f51;
+  border: 2px solid #e76f51;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Footer */
+.footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}

@@ -1,0 +1,176 @@
+/* Apply base styles to body */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure main content area can grow */
+main {
+  flex-grow: 1;
+}
+
+/* Header */
+header {
+  background-color: #ffffff;
+  border-top: 2px solid #1453f3 !important; /* Blue border at the top */
+  color: white;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Logo */
+.customer-dashboard-logo {
+  font-weight: 800;
+  font-size: 1.7rem;
+  color: #f6f8fa;
+}
+
+/* Settings and Logout Buttons */
+.customer-dashboard-nav-icons {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+}
+
+.nav-button {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #4f74db;
+}
+
+/* Main content styles */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+p.subtitle {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+/* Roles Section */
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.role-card {
+  background-color: #f9f9f9;
+  border: 2px solid #d0e4ff;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 400px;
+  padding: 35px 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 350px; /* Ensures there's enough space to align button at the bottom */
+}
+
+.select-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto; /* Push button to the bottom */
+  width: 100%; /* Ensure the button stretches across the card */
+}
+
+
+.role-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.role-icon {
+  font-size: 3rem;
+  margin-bottom: 18px;
+}
+
+.role-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #0056b3;
+}
+
+.role-desc {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+.select-btn:hover {
+  background-color: #0056b3;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .roles {
+    gap: 30px;
+  }
+  .role-card {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  main {
+    padding: 40px 15px 30px;
+  }
+
+  .role-card {
+    width: 90%;
+    max-width: 400px;
+    padding: 25px 20px;
+  }
+
+  .role-icon {
+    font-size: 2.5rem;
+  }
+}

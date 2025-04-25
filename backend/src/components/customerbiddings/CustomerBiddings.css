@@ -1,0 +1,204 @@
+/* src/components/customerbiddings/CustomerBiddings.css */
+
+/* Apply to a root container if needed, or directly to body if this is the whole page */
+.customer-biddings-page { /* Added root class */
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #ffffff; /* White background */
+  color: #003366; /* Dark blue text */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #0066cc; /* Medium blue header */
+  color: white;
+  flex-shrink: 0;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 0;
+}
+
+/* Animation area */
+.search-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 0rem; /* Increased padding */
+  background-color: #ffffff; /* Light blue background */
+  flex-shrink: 0;
+}
+
+.rider-loader {
+  text-align: center;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.rider-icon {
+  font-size: 3rem;
+  animation: ride 1.5s ease-in-out infinite alternate; /* Added alternate */
+}
+
+.search-animation p {
+  margin-top: 0.8rem; /* Increased margin */
+  font-size: 1.1rem; /* Slightly larger text */
+  color: #003366;
+  font-weight: 500;
+}
+
+/* Keyframes for animations */
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes ride {
+  from { transform: translateY(0px) rotate(-5deg); }
+  to   { transform: translateY(-8px) rotate(5deg); }
+}
+
+/* Requests/Bids section */
+.requests {
+  max-width: 800px;
+  width: 95%; /* Added responsive width */
+  margin: 2rem auto; /* Centered with margin */
+  padding: 0 1rem;
+  flex-grow: 1; /* Allow this section to grow */
+}
+
+.requests h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #004080; /* Slightly darker blue for heading */
+}
+
+/* Individual bid item */
+.request {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5faff; /* Very light blue background */
+  border: 1px solid #cce0ff; /* Lighter border */
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 51, 102, 0.05); /* Subtle shadow */
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(10px); /* Start slightly lower for animation */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between avatar and text */
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #0066cc; /* Match header blue */
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Circular avatar */
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #004080; /* Dark blue name */
+  margin-bottom: 0.2rem; /* Space below name */
+}
+
+.offer {
+  font-size: 0.95rem;
+  color: #003366; /* Medium blue offer */
+}
+
+/* Actions buttons */
+.actions {
+  display: flex; /* Align buttons horizontally */
+  gap: 0.5rem; /* Space between buttons */
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.actions button {
+  background-color: #0066cc; /* Blue accept button */
+  color: white;
+  padding: 0.5rem 1rem;
+  /* margin-left: 0.5rem; Removed in favour of gap */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500; /* Slightly bolder text */
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.actions button.reject {
+  background-color: #e64d4d; /* Softer red for reject */
+}
+.actions button.reject:hover {
+  background-color: #cc3333; /* Darker red on hover */
+}
+
+.actions button:hover {
+  opacity: 0.85; /* Hover effect */
+}
+
+.actions button:disabled {
+  background-color: #b0c4de; /* Light steel blue disabled */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .header p { font-size: 1rem; }
+
+  .request {
+      flex-direction: column; /* Stack vertically */
+      align-items: stretch; /* Stretch items */
+      gap: 0.8rem; /* Adjust gap for stacked layout */
+      padding: 1rem; /* Adjust padding */
+  }
+
+  .info {
+      /* Adjustments for stacked layout if needed */
+  }
+
+  .actions {
+      align-self: flex-end; /* Buttons to the right */
+      margin-top: 0.5rem; /* Add space above buttons */
+  }
+}

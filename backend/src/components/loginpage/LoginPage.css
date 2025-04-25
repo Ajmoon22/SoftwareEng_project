@@ -1,0 +1,128 @@
+/* General styles for the container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+/* Container for the text and image */
+.login-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Left Section: Image and Text */
+.left-section {
+  width: 45%; /* Takes up less space for the image and text */
+  text-align: center;
+}
+
+.bike-image {
+  width: 100%;
+  height: auto;
+}
+
+.main-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.info-text {
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: 20px;
+}
+
+/* Right Section: Login Form */
+.login-form {
+  width: 45%; /* Takes up 45% of the screen */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.form-description {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.login-form-box {
+  width: 100%;
+}
+
+.error-message {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-btn {
+  background-color: #00080f !important;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  margin-top: 20px;
+  border-radius: 25px;
+}
+
+.login-btn:hover {
+  background-color: #000103 !important;
+}
+
+/* Link to sign up */
+.signup-link a {
+  color: #0c0d0d;
+}
+
+.signup-link a:hover {
+  color: #090909;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .login-form {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .bike-image {
+    width: 70%; /* Reduce image size on smaller screens */
+    margin-top: 20px;
+  }
+
+  .main-text {
+    font-size: 2rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+}

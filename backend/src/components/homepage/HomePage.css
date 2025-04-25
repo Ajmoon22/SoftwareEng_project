@@ -1,0 +1,144 @@
+/* General styles for the container */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #003366; /* Dark Blue background */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  flex-direction: column; /* Stack content vertically */
+  position: relative;
+  background-image: url('../../assets/buliding.png'); /* Background building image */
+  background-repeat: no-repeat;
+  background-position: bottom center; /* Position the building image at the bottom center */
+  background-size: contain; /* Ensure the building fits within the container */
+}
+
+/* Container for the text and image */
+.home-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Center text and image vertically */
+  width: 100%;
+  max-width: 1200px;
+  text-align: center; /* Align text to the center */
+}
+
+/* Left Section: Text and Buttons */
+.home-text {
+  text-align: center;
+  color: #fff; /* White text color */
+}
+
+.home-title {
+  font-size: 4rem; /* Title size */
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Adds shadow for better readability */
+  letter-spacing: 0.1em; /* Add slight letter spacing */
+  color: white !important; /* Set text color to white and make it important */
+}
+
+.home-subtitle {
+  font-size: 2rem;
+  color: #fdfbfb !important; /* White color for subtitle */
+  margin-bottom: 10px;
+}
+
+.home-description {
+  font-size: 1.2rem;
+  color: #fefcfc !important;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Sign Up Button */
+.signup-btn {
+  background-color: transparent !important;
+  color: #fcfcfc !important;
+  border: 2px solid #58a6ff !important;
+  border-radius: 25px !important;
+  font-weight: bold !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease !important;
+}
+
+.signup-btn:hover {
+  background-color: #58a6ff !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+}
+
+/* Login Button */
+.login-btn {
+  background-color: transparent !important;
+  color: #f8f8f8 !important;
+  border: 2px solid #58a6ff !important;
+  border-radius: 25px !important;
+  font-weight: bold !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease !important;
+}
+
+.login-btn:hover {
+  background-color: #2d9df9 !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+}
+
+/* Right Section - Image Styling */
+.home-image {
+  width: 50% !important; /* Takes up half the screen */
+  margin-bottom: 30px !important; /* Add margin to the bottom for spacing */
+}
+
+.image {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transition: transform 0.3s ease !important; /* Add transition for hover effect */
+}
+
+.image:hover {
+  transform: scale(1.05) !important; /* Slight zoom effect on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-text {
+    width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+
+  .home-title {
+    font-size: 3rem !important;
+  }
+
+  .home-subtitle {
+    font-size: 1.5rem !important;
+  }
+
+  .home-buttons {
+    flex-direction: column !important;
+  }
+
+  .home-buttons button {
+    width: 80% !important;
+  }
+
+  .home-image {
+    width: 80% !important;
+    margin-top: 20px !important;
+  }
+}
