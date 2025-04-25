@@ -10,8 +10,7 @@ export default function Settings() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [deletePassword, setDeletePassword] = useState("");
-
+  const [deletePassword, setDeletePassword] = useState(""); 
   useEffect(() => {
     const fetchUser = async () => {
       try {
