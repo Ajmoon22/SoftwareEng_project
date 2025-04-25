@@ -9,6 +9,7 @@ const authRoutes = require("./routes/auth");
 const requestRoutes = require("./routes/requests");
 const bidRoutes = require("./routes/bids");
 const settingsRoutes = require("./routes/settings");
+const ratingRoutes = require("./routes/ratings");
 
 dotenv.config();
 
@@ -46,6 +47,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/bids", bidRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/ratings", ratingRoutes);
+app.use("/api/users", require("./routes/users"));
+app.use("/api/admin", require("./routes/admin"));
+app.use("/api/complaints", require("./routes/complaints"));
+
 
 // Socket.IO listeners
 io.on("connection", (socket) => {

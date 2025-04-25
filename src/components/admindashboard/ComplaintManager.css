@@ -1,0 +1,43 @@
+.complaint-manager {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .complaint-manager h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .complaints-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .complaints-table th,
+  .complaints-table td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .complaints-table th {
+    background-color: #f5f5f5;
+  }
+  
+  .complaints-table button {
+    padding: 6px 10px;
+    border: none;
+    background-color: #1976d2;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .complaints-table button:hover {
+    background-color: #115293;
+  }
+  

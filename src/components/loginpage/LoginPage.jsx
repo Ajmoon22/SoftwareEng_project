@@ -1,10 +1,10 @@
+// src/components/loginpage/LoginPage.jsx
 import React, { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Box, TextField, Button, Typography, Paper, Link, Alert } from "@mui/material";
-import bikeImage from "../../assets/bike_Rider.png"; // Correct image import
-import "./LoginPage.css"; // Importing the CSS for styling
+import bikeImage from "../../assets/bike_Rider.png";
+import "./LoginPage.css";
 
-// --- Login Page Component ---
 function LoginPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,13 +13,13 @@ function LoginPage() {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    if (error) setError(""); // Clear error on input change
+    if (error) setError("");
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-    setLoading(true); // Set loading state
+    setError("");
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5005/api/auth/login", {
@@ -36,11 +36,17 @@ function LoginPage() {
         throw new Error(data.msg || "Login failed. Please check your credentials.");
       }
 
-      // Store user info if login is successful
+      // Store user info
       localStorage.setItem("userId", data.user._id);
       localStorage.setItem("username", data.user.username);
+      localStorage.setItem("isAdmin", data.user.isAdmin); // ✅ store isAdmin
 
-      navigate("/select-role");
+      // Redirect based on role
+      if (data.user.isAdmin) {
+        navigate("/admin-dashboard"); // ✅ admin route
+      } else {
+        navigate("/select-role");
+      }
 
     } catch (err) {
       setError(err.message);
@@ -52,7 +58,6 @@ function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-content">
-        {/* Left Section: Image and Text */}
         <div className="left-section">
           <img src={bikeImage} alt="Bike Delivery" className="bike-image" />
           <Typography variant="h4" className="main-text">
@@ -65,7 +70,6 @@ function LoginPage() {
           </Typography>
         </div>
 
-        {/* Right Section: Login Form */}
         <Paper elevation={3} className="login-form">
           <Typography component="h1" variant="h5" className="form-title">
             Welcome Back!
@@ -74,7 +78,6 @@ function LoginPage() {
             Log in to continue using Campus Cart
           </Typography>
 
-          {/* Display error message */}
           {error && (
             <Alert severity="error" className="error-message">
               {error}

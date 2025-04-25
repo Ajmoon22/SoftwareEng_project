@@ -78,8 +78,8 @@ function CustomerRequests() {
           if (data?._id) {
               toast.success(`Request submitted! Now viewing bids...`);
               // Navigate using the received ID
-              navigate('/customer-bidding', { state: { requestId: data._id } }); // Use data._id
-          } else {
+              navigate('/customer-dashboard');
+            } else {
                // This error should now only happen if backend sends success status but no '_id'
                console.error("Backend Response Data:", data); // Log data for debugging
                throw new Error("Request created, but valid ID not found in backend response.");

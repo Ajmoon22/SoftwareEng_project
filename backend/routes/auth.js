@@ -22,12 +22,13 @@ router.post("/signup", async (req, res) => {
   res.status(201).json({ 
     token, 
     user: { 
-      _id: user._id, // ✅ MATCH `_id` here too
+      _id: user._id,
       username, 
-      email 
+      email,
+      isAdmin: user.isAdmin,     // ✅ include this
+      isBlocked: user.isBlocked  // ✅ optional if needed
     } 
   });
-  
 });
 
 // Login Route
@@ -41,17 +42,20 @@ router.post("/login", async (req, res) => {
   const isMatch = await user.comparePassword(password);
   if (!isMatch) return res.status(400).json({ msg: "Invalid password" });
 
+  if (user.isBlocked) return res.status(403).json({ msg: "User is blocked by admin." });
+
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   res.json({ 
     token, 
     user: { 
-      _id: user._id, // ✅ KEY FIX: change `id` → `_id`
+      _id: user._id,
       username: user.username,
-      email 
+      email,
+      isAdmin: user.isAdmin,     // ✅ include this
+      isBlocked: user.isBlocked  // ✅ optional if needed
     } 
   });
-  
 });
 
 // Update user info (name or email)
