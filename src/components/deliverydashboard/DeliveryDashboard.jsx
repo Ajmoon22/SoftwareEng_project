@@ -1,4 +1,5 @@
 // src/components/deliverydashboard/DeliveryDashboard.jsx
+/*This is what delivery rider is shown */
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./DeliveryDashboard.css";
 import BidModal from "./BidModal";

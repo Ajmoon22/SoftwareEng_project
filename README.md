@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# 🚚 Campus Cart - Dorm Delivery and Bidding System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Campus Cart is a full-stack web application designed to facilitate *on-campus deliveries*.  
+Students can post delivery requests from campus restaurants to their dorms, and delivery persons can *bid* for these deliveries.
 
-## Available Scripts
+Built with *MERN stack* (MongoDB, Express.js, React, Node.js) and *Socket.IO* for real-time updates.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📋 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+•⁠  ⁠*Student (Customer) Side:*
+  - Browse campus restaurants.
+  - Place delivery requests with destination, item details, and bid offer.
+  - View incoming delivery bids.
+  - Accept preferred delivery bid.
+  - Track delivery status in real-time.
+  - Rate the delivery person after completion.
+  - Cancel requests (only before accepting a bid).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+•⁠  ⁠*Delivery Person Side:*
+  - View available delivery requests.
+  - Submit bids with price and estimated time.
+  - Track assigned deliveries.
+  - Update delivery status ("Picked up", "On the way", "Completed").
+  - View their own rating.
 
-### `npm test`
+•⁠  ⁠*Admin Side:*
+  - Manage complaints submitted by users.
+  - View and block users if necessary.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+•⁠  ⁠*Other Key Features:*
+  - Live updates using *Socket.IO*.
+  - JWT-based authentication.
+  - Secure route protection.
+  - Responsive UI with Material UI and custom CSS.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠 Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+•⁠  ⁠*Frontend:* React.js, React Router, Material-UI, CSS
+•⁠  ⁠*Backend:* Node.js, Express.js
+•⁠  ⁠*Database:* MongoDB Atlas
+•⁠  ⁠*Real-Time Communication:* Socket.IO
+•⁠  ⁠*Authentication:* JWT (JSON Web Tokens)
+•⁠  ⁠*Hosting:* (Local Development Setup)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🚀 Setup Instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Clone the repository
+⁠ bash
+git clone <repository-url>
+cd campus-cart
+ ⁠
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Backend Setup
+⁠ bash
+cd backend
+npm install
+ ⁠
+•⁠  ⁠Create a ⁠ .env ⁠ file inside ⁠ /backend ⁠ with:
+  
+⁠   MONGO_URI=<your_mongo_connection_string>
+  JWT_SECRET=<your_jwt_secret>
+   ⁠
+•⁠  ⁠Start backend server:
+  ⁠ bash
+  npm start
+   ⁠
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Frontend Setup
+⁠ bash
+cd frontend
+npm install
+npm start
+ ⁠
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+•⁠  ⁠Runs the React app at ⁠ http://localhost:3000 ⁠.
+•⁠  ⁠Backend runs at ⁠ http://localhost:5005 ⁠.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📄 Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+backend/
+  ├── models/
+  ├── routes/
+  ├── controllers/
+  ├── app.js
+frontend/
+  ├── src/
+      ├── components/
+      ├── assets/
+      ├── App.js
+  ├── package.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🌟 Contribution Workflow
 
-### Making a Progressive Web App
+•⁠  ⁠Always create a *feature branch* from ⁠ main ⁠ before making changes.
+•⁠  ⁠After implementing and testing, create a *Pull Request (PR)* to merge your branch into ⁠ main ⁠.
+•⁠  ⁠Main branch should remain stable and production-ready at all times.
+•⁠  ⁠Final project for Demo 2 will be submitted from a frozen ⁠ demo_2 ⁠ branch copied from ⁠ main ⁠.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
