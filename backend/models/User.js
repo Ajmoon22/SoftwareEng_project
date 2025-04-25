@@ -3,16 +3,15 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email:    { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  phone:    { type: String, required: true }, // ✅ NEW FIELD
 
-  // --- Rating Support ---
   totalRating: { type: Number, default: 0 },
-  numRatings: { type: Number, default: 0 },
+  numRatings:  { type: Number, default: 0 },
 
-  // Admin and block support
-  isAdmin: { type: Boolean, default: false },
-  isBlocked: { type: Boolean, default: false }
+  isAdmin:  { type: Boolean, default: false },
+  isBlocked:{ type: Boolean, default: false }
 });
 
 userSchema.pre("save", async function(next) {
@@ -26,7 +25,6 @@ userSchema.methods.comparePassword = function(password) {
   return bcrypt.compare(password, this.password);
 };
 
-// Virtual field to compute average rating
 userSchema.virtual("averageRating").get(function() {
   if (this.numRatings === 0) return 0;
   return (this.totalRating / this.numRatings).toFixed(1);

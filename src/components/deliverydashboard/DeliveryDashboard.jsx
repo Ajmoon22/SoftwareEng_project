@@ -96,8 +96,13 @@ export default function DeliveryDashboard() {
     }
   };
 
-  const assigned = requests.filter(r => r.assignedDeliveryPerson === deliveryPersonId && r.status !== "completed");
-  const available = requests.filter(r => !r.selectedBid && ["pending", "active"].includes(r.status));
+  const assigned = requests.filter(
+    r => r.assignedDeliveryPerson === deliveryPersonId && r.status !== "completed"
+  );
+
+  const available = requests.filter(
+    r => !r.selectedBid && ["pending", "active"].includes(r.status)
+  );
 
   const getNextStatusButton = (r) => {
     switch (r.status?.toLowerCase()) {
@@ -145,7 +150,9 @@ export default function DeliveryDashboard() {
           <div key={r._id} className="assigned-card">
             <h3>{r.pickup} → {r.destination}</h3>
             <p>{r.description}</p>
-            <p>Status: {r.status}</p>
+            <p><strong>Status:</strong> {r.status}</p>
+            <p><strong>Customer:</strong> {r.user?.username || "Unknown"}</p>
+            <p><strong>Phone:</strong> {r.user?.phone || "N/A"}</p> {/* ✅ Phone shown here */}
             {getNextStatusButton(r)}
           </div>
         ))}

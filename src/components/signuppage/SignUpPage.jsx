@@ -1,40 +1,36 @@
 import React, { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Box, TextField, Button, Typography, Paper, Link, Alert } from "@mui/material";
-import bikeImage from "../../assets/bike_Rider.png"; // Correct image import
-import "./SignUpPage.css"; // Importing the CSS for styling
+import bikeImage from "../../assets/bike_Rider.png";
+import "./SignUpPage.css";
 
-// --- SignUp Page Component ---
 function SignUpPage() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ username: "", email: "", password: "", phone: "" }); // ✅ Add phone
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state for button
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    if (error) setError(""); // Clear error on input change
+    if (error) setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
     setLoading(true);
 
-    // Basic validation (Optional but recommended)
-    if (!form.username || !form.email || !form.password) {
-        setError("All fields are required.");
-        setLoading(false);
-        return;
+    if (!form.username || !form.email || !form.password || !form.phone) {
+      setError("All fields are required.");
+      setLoading(false);
+      return;
     }
 
     try {
       const res = await fetch("http://localhost:5005/api/auth/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form), // Send the whole form state
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
@@ -44,18 +40,16 @@ function SignUpPage() {
       }
 
       navigate("/login");
-
     } catch (err) {
       setError(err.message);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="signup-container">
       <div className="signup-content">
-        {/* Left Section: Image and Text */}
         <div className="left-section">
           <img src={bikeImage} alt="Bike Delivery" className="bike-image" />
           <Typography variant="h4" className="main-text">
@@ -65,8 +59,7 @@ function SignUpPage() {
             Join the campus delivery movement!
             <br />
             Sign up to start receiving or delivering anything across your university—from the main gate to your favorite cafeteria to your dorm.
-            <br />
-            <br />
+            <br /><br />
             <ul>
               <li>✔ Easy sign-up</li>
               <li>✔ Secure student-only access</li>
@@ -75,7 +68,6 @@ function SignUpPage() {
           </Typography>
         </div>
 
-        {/* Right Section: Signup Form */}
         <Paper elevation={3} className="signup-form">
           <Typography component="h1" variant="h5" className="form-title">
             Create an Account
@@ -84,7 +76,6 @@ function SignUpPage() {
             Join Campus Cart today!
           </Typography>
 
-          {/* Display error message */}
           {error && (
             <Alert severity="error" className="error-message">
               {error}
@@ -127,6 +118,20 @@ function SignUpPage() {
               id="password"
               autoComplete="new-password"
               value={form.password}
+              onChange={handleChange}
+              error={!!error}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="phone"
+              label="Phone Number"
+              type="tel"
+              id="phone"
+              autoComplete="tel"
+              value={form.phone}
               onChange={handleChange}
               error={!!error}
             />

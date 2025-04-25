@@ -28,7 +28,7 @@ router.get("/user/:userId", async (req, res) => {
     const requests = await Request.find({ user: req.params.userId })
       .sort({ createdAt: -1 })
       .populate("selectedBid")
-      .populate("assignedDeliveryPerson", "username");
+      .populate("assignedDeliveryPerson", "username phone");
     res.json(requests);
   } catch (err) {
     console.error("User requests error:", err);
@@ -43,13 +43,13 @@ router.get("/active", async (req, res) => {
     const available = await Request.find({
       status: "active",
       selectedBid: null,
-    }).populate("user", "username");
+    }).populate("user", "username phone");
 
     const assigned = await Request.find({
       assignedDeliveryPerson: deliveryPersonId,
       status: { $ne: "completed" },
     })
-      .populate("user", "username")
+      .populate("user", "username phone")
       .populate("bids.deliveryPerson", "username");
 
     res.json([...assigned, ...available]);
@@ -63,7 +63,7 @@ router.get("/active", async (req, res) => {
 router.get("/:requestId", async (req, res) => {
   try {
     const request = await Request.findById(req.params.requestId)
-      .populate("assignedDeliveryPerson", "username")
+      .populate("assignedDeliveryPerson", "username phone")
       .populate("selectedBid");
 
     if (!request) return res.status(404).json({ msg: "Request not found" });
@@ -112,10 +112,10 @@ router.post("/select-bid", async (req, res) => {
         path: "selectedBid",
         populate: {
           path: "deliveryPerson",
-          select: "username"
+          select: "username phone"
         }
       })
-      .populate("assignedDeliveryPerson", "username");
+      .populate("assignedDeliveryPerson", "username phone");
 
     res.json(populated);
   } catch (err) {
@@ -124,7 +124,7 @@ router.post("/select-bid", async (req, res) => {
   }
 });
 
-// ✅ Update request status with full population
+// Update request status
 router.patch("/:requestId/status", async (req, res) => {
   const io = req.app.get("socketio");
   const { status } = req.body;
@@ -138,10 +138,10 @@ router.patch("/:requestId/status", async (req, res) => {
         path: "selectedBid",
         populate: {
           path: "deliveryPerson",
-          select: "username"
+          select: "username phone"
         }
       })
-      .populate("assignedDeliveryPerson", "username");
+      .populate("assignedDeliveryPerson", "username phone");
 
     io.emit("request_status_updated", updated);
     res.json(updated);

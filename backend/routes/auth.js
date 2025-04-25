@@ -6,17 +6,18 @@ const router = express.Router();
 
 // Signup Route
 router.post("/signup", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, phone } = req.body;
 
-  // Check if user already exists
+  if (!username || !email || !password || !phone) {
+    return res.status(400).json({ msg: "All fields are required" });
+  }
+
   const existingUser = await User.findOne({ email });
   if (existingUser) return res.status(400).json({ msg: "User already exists" });
 
-  // Save new user
-  const user = new User({ username, email, password });
+  const user = new User({ username, email, password, phone });
   await user.save();
 
-  // Create token
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   res.status(201).json({ 
@@ -25,8 +26,9 @@ router.post("/signup", async (req, res) => {
       _id: user._id,
       username, 
       email,
-      isAdmin: user.isAdmin,     // ✅ include this
-      isBlocked: user.isBlocked  // ✅ optional if needed
+      phone,               
+      isAdmin: user.isAdmin,
+      isBlocked: user.isBlocked
     } 
   });
 });
