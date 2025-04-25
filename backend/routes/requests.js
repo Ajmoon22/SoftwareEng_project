@@ -9,7 +9,10 @@ router.post("/", async (req, res) => {
   const { user, pickup, destination, description, customerPrice } = req.body;
 
   try {
-    const existing = await Request.findOne({ user, status: { $ne: "completed" } });
+    const existing = await Request.findOne({ 
+      user, 
+      status: { $in: ["active", "confirmed", "picked up", "on the way"] } // ✅ Only block if truly active
+    });
     if (existing) return res.status(400).json({ msg: "You already have an active request." });
 
     const newRequest = new Request({
