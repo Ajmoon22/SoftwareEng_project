@@ -138,7 +138,7 @@ function CustomerDashboard() {
       setRating(0);
       setShowRatingPrompt(false);
     } catch (err) {
-      toast.error("Error rating delivery");
+      toast.error("Could not rate delivery");
     }
   };
 
@@ -165,7 +165,7 @@ function CustomerDashboard() {
     socket.on("request_canceled", ({ requestId }) => {
       if (activeRequest?._id === requestId) {
         setActiveRequest(null);
-        toast.info("Your request was canceled.");
+        toast.info("Request canceled.");
       }
     });
 
