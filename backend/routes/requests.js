@@ -6,12 +6,20 @@ const Bid = require("../models/Bid");
 // Create new request
 router.post("/", async (req, res) => {
   const io = req.app.get("socketio");
-  const { user, pickup, destination, description } = req.body;
+  const { user, pickup, destination, description, customerPrice } = req.body;
+
   try {
     const existing = await Request.findOne({ user, status: { $ne: "completed" } });
     if (existing) return res.status(400).json({ msg: "You already have an active request." });
 
-    const newRequest = new Request({ user, pickup, destination, description });
+    const newRequest = new Request({
+      user,
+      pickup,
+      destination,
+      description,
+      customerPrice: parseFloat(customerPrice) || 0
+    });
+
     await newRequest.save();
 
     io.emit("new_request", newRequest);
@@ -27,8 +35,12 @@ router.get("/user/:userId", async (req, res) => {
   try {
     const requests = await Request.find({ user: req.params.userId })
       .sort({ createdAt: -1 })
-      .populate("selectedBid")
+      .populate({
+        path: "selectedBid",
+        model: "Bid" // ✅ Ensures full price/eta/DP is loaded
+      })
       .populate("assignedDeliveryPerson", "username phone");
+
     res.json(requests);
   } catch (err) {
     console.error("User requests error:", err);
@@ -64,7 +76,10 @@ router.get("/:requestId", async (req, res) => {
   try {
     const request = await Request.findById(req.params.requestId)
       .populate("assignedDeliveryPerson", "username phone")
-      .populate("selectedBid");
+      .populate({
+        path: "selectedBid",
+        model: "Bid",
+      });
 
     if (!request) return res.status(404).json({ msg: "Request not found" });
     res.json(request);
@@ -110,10 +125,7 @@ router.post("/select-bid", async (req, res) => {
     const populated = await Request.findById(request._id)
       .populate({
         path: "selectedBid",
-        populate: {
-          path: "deliveryPerson",
-          select: "username phone"
-        }
+        model: "Bid", // ✅ ensure full bid is returned (price, eta)
       })
       .populate("assignedDeliveryPerson", "username phone");
 
@@ -128,6 +140,7 @@ router.post("/select-bid", async (req, res) => {
 router.patch("/:requestId/status", async (req, res) => {
   const io = req.app.get("socketio");
   const { status } = req.body;
+
   try {
     const updated = await Request.findByIdAndUpdate(
       req.params.requestId,
@@ -136,10 +149,7 @@ router.patch("/:requestId/status", async (req, res) => {
     )
       .populate({
         path: "selectedBid",
-        populate: {
-          path: "deliveryPerson",
-          select: "username phone"
-        }
+        model: "Bid"
       })
       .populate("assignedDeliveryPerson", "username phone");
 

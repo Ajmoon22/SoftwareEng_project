@@ -152,7 +152,7 @@ export default function DeliveryDashboard() {
             <p>{r.description}</p>
             <p><strong>Status:</strong> {r.status}</p>
             <p><strong>Customer:</strong> {r.user?.username || "Unknown"}</p>
-            <p><strong>Phone:</strong> {r.user?.phone || "N/A"}</p> {/* ✅ Phone shown here */}
+            <p><strong>Phone:</strong> {r.user?.phone || "N/A"}</p>
             {getNextStatusButton(r)}
           </div>
         ))}
@@ -166,6 +166,9 @@ export default function DeliveryDashboard() {
             <h3>{r.pickup} → {r.destination}</h3>
             <p>{r.description}</p>
             <p><strong>Customer:</strong> {r.user?.username || "Unknown"}</p>
+            {r.customerPrice > 0 && (
+              <p><strong>Suggested Price:</strong> Rs. {r.customerPrice}</p>
+            )}
             <button onClick={() => openModalForRequest(r)}>Place Your Bid</button>
           </div>
         ))}

@@ -184,7 +184,7 @@ function CustomerDashboard() {
   if (activeRequest && !activeRequest.selectedBid) {
     return (
       <div className="customer-biddings-page">
-        <h2>🛵 Active Delivery Request</h2>
+        <h2>🙵 Active Delivery Request</h2>
         {bids.length === 0 ? (
           <p>Waiting for riders to bid...</p>
         ) : (
@@ -222,14 +222,50 @@ function CustomerDashboard() {
 
   if (activeRequest?.selectedBid) {
     return (
-      <div className="customer-biddings-page">
-        <h2>🚚 Delivery In Progress</h2>
-        <p><strong>Assigned to:</strong> {activeRequest.assignedDeliveryPerson?.username || "Loading..."}</p>
-        <p><strong>Phone:</strong> {activeRequest.assignedDeliveryPerson?.phone || "Not Available"}</p> {/* ✅ Added this line */}
-        <p><strong>Offer:</strong> {activeRequest.selectedBid?.price || "-"} Rs</p>
-        <p><strong>ETA:</strong> {activeRequest.selectedBid?.eta || "-"} </p>
-        <p><strong>Status:</strong> {activeRequest.status}</p>
-      </div>
+      <Box
+        sx={{
+          p: 4,
+          maxWidth: 600,
+          margin: "0 auto",
+          textAlign: "center",
+          borderRadius: "12px",
+          boxShadow: 3,
+          backgroundColor: "#f9f9f9"
+        }}
+      >
+        <Typography variant="h4" color="primary" gutterBottom>
+          🚚 Delivery In Progress
+        </Typography>
+
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Assigned to: <strong>{activeRequest.assignedDeliveryPerson?.username || "Loading..."}</strong>
+        </Typography>
+
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          📞 Phone: {activeRequest.assignedDeliveryPerson?.phone || "Not Available"}
+        </Typography>
+
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          💰 Offer Accepted: <strong>{activeRequest.selectedBid?.price || "—"} Rs</strong>
+        </Typography>
+
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          ⏱ ETA: {activeRequest.selectedBid?.eta || "—"} minutes
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            mt: 2,
+            fontWeight: "bold",
+            color: "#444",
+            borderTop: "1px solid #ccc",
+            pt: 2,
+          }}
+        >
+          Status: {activeRequest.status}
+        </Typography>
+      </Box>
     );
   }
 
@@ -245,9 +281,7 @@ function CustomerDashboard() {
       </div>
 
       <div className="past-deliveries-button-wrapper">
-        <button className="past-deliveries-button" onClick={() => navigate("/past-deliveries")}>
-          📜 View Past Deliveries
-        </button>
+        <button className="past-deliveries-button" onClick={() => navigate("/past-deliveries")}>📜 View Past Deliveries</button>
       </div>
 
       <div className="customer-dashboard-search-container">

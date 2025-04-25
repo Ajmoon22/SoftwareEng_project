@@ -12,6 +12,7 @@ const requestSchema = new mongoose.Schema({
   pickup: { type: String, required: true },
   destination: { type: String, required: true },
   description: { type: String, required: true },
+  customerPrice: { type: Number, required: true},
   status: {
     type: String,
     enum: ["active", "confirmed", "picked up", "on the way", "completed"],
