@@ -21,16 +21,16 @@ import pastaImage from '../../assets/pasta.jpg';
 const socket = io("http://localhost:5005");
 
 const restaurants = [
-  { id: 1, name: 'Jammin Java', rating: 4.5, time: '20-25 min', price: '₹', tags: ['Mexican', 'Snacks', 'Drinks'], image: tacoImage },
-  { id: 2, name: 'Zakir Tikka', rating: 4.7, time: '15-20 min', price: '₹₹', tags: ['BBQ', 'Pakistani', 'Spicy'], image: grilledImage },
-  { id: 3, name: 'Baradari', rating: 4.2, time: '10-15 min', price: '₹', tags: ['Burgers', 'Fast Food', 'Drinks'], image: burgerImage },
-  { id: 4, name: 'Delish', rating: 4.6, time: '20-30 min', price: '₹₹', tags: ['Pizza', 'Cheesy', 'Italian'], image: pizzaImage },
-  { id: 5, name: 'Mastani', rating: 4.8, time: '25-30 min', price: '₹₹₹', tags: ['Biryani', 'Desi', 'Spicy'], image: biryaniImage },
-  { id: 6, name: 'Juice zone', rating: 4.3, time: '20-25 min', price: '₹₹', tags: ['Chinese', 'Noodles', 'Dumplings'], image: curryImage },
-  { id: 7, name: 'Super Store', rating: 4.1, time: '10-15 min', price: '₹', tags: ['Coffee', 'Cafe', 'Bakery'], image: tacoImage },
-  { id: 8, name: 'Green Olive', rating: 4.4, time: '15-20 min', price: '₹₹', tags: ['Healthy', 'Salads', 'Vegan'], image: grilledImage },
-  { id: 9, name: 'Khokha Store', rating: 4.6, time: '5-10 min', price: '₹', tags: ['Ice Cream', 'Dessert', 'Cold'], image: sushiImage },
-  { id: 10, name: 'Bunker', rating: 4.5, time: '20-25 min', price: '₹₹', tags: ['Italian', 'Pasta', 'Cheesy'], image: pastaImage },
+  { id: 1, name: 'Jammin Java', rating: 4.5, time: '20-25 min', price: '', tags: ['Mexican', 'Snacks', 'Drinks'], image: tacoImage },
+  { id: 2, name: 'Zakir Tikka', rating: 4.7, time: '15-20 min', price: '', tags: ['BBQ', 'Pakistani', 'Spicy'], image: grilledImage },
+  { id: 3, name: 'Baradari', rating: 4.2, time: '10-15 min', price: '', tags: ['Burgers', 'Fast Food', 'Drinks'], image: burgerImage },
+  { id: 4, name: 'Delish', rating: 4.6, time: '20-30 min', price: '', tags: ['Pizza', 'Cheesy', 'Italian'], image: pizzaImage },
+  { id: 5, name: 'Mastani', rating: 4.8, time: '25-30 min', price: '', tags: ['Biryani', 'Desi', 'Spicy'], image: biryaniImage },
+  { id: 6, name: 'Juice zone', rating: 4.3, time: '20-25 min', price: '', tags: ['Chinese', 'Noodles', 'Dumplings'], image: curryImage },
+  { id: 7, name: 'Super Store', rating: 4.1, time: '10-15 min', price: '', tags: ['Coffee', 'Cafe', 'Bakery'], image: tacoImage },
+  { id: 8, name: 'Green Olive', rating: 4.4, time: '15-20 min', price: '', tags: ['Healthy', 'Salads', 'Vegan'], image: grilledImage },
+  { id: 9, name: 'Khokha Store', rating: 4.6, time: '5-10 min', price: '', tags: ['Ice Cream', 'Dessert', 'Cold'], image: sushiImage },
+  { id: 10, name: 'Bunker', rating: 4.5, time: '20-25 min', price: '', tags: ['Italian', 'Pasta', 'Cheesy'], image: pastaImage },
 ];
 
 function RestaurantCard({ restaurant, onClick }) {
@@ -101,6 +101,21 @@ function CustomerDashboard() {
     }
   };
 
+  const handleCancelRequest = async () => {
+    if (!activeRequest?._id) return;
+    try {
+      const res = await fetch(`http://localhost:5005/api/requests/${activeRequest._id}/cancel`, {
+        method: "PATCH"
+      });
+      if (!res.ok) throw new Error("Failed to cancel request.");
+      toast.info("Request cancelled.");
+      setActiveRequest(null);
+      navigate("/customer-dashboard");
+    } catch (err) {
+      toast.error("Error cancelling request.");
+    }
+  };
+
   const handleRestaurantClick = (restaurant) => {
     navigate('/customer-requests', { state: { selectedRestaurant: restaurant } });
   };
@@ -147,9 +162,17 @@ function CustomerDashboard() {
       }
     });
 
+    socket.on("request_canceled", ({ requestId }) => {
+      if (activeRequest?._id === requestId) {
+        setActiveRequest(null);
+        toast.info("Your request was canceled.");
+      }
+    });
+
     return () => {
       socket.off("bid_placed");
       socket.off("request_status_updated");
+      socket.off("request_canceled");
     };
   }, [activeRequest, userId]);
 
@@ -181,10 +204,23 @@ function CustomerDashboard() {
     );
   }
 
-  if (activeRequest && !activeRequest.selectedBid) {
+  if (activeRequest?.selectedBid) {
     return (
       <div className="customer-biddings-page">
-        <h2>🙵 Active Delivery Request</h2>
+        <h2>🚚 Delivery In Progress</h2>
+        <p><strong>Assigned to:</strong> {activeRequest.assignedDeliveryPerson?.username || "Loading..."}</p>
+        <p><strong>Phone:</strong> {activeRequest.assignedDeliveryPerson?.phone || "Not Available"}</p>
+        <p><strong>Offer:</strong> {activeRequest.selectedBid?.price || "—"} Rs</p>
+        <p><strong>ETA:</strong> {activeRequest.selectedBid?.eta || "—"}</p>
+        <p><strong>Status:</strong> {activeRequest.status}</p>
+      </div>
+    );
+  }
+
+  if (activeRequest) {
+    return (
+      <div className="customer-biddings-page">
+        <h2>🛵 Active Delivery Request</h2>
         {bids.length === 0 ? (
           <p>Waiting for riders to bid...</p>
         ) : (
@@ -198,12 +234,8 @@ function CustomerDashboard() {
                   {bid.eta && <div className="eta">ETA: {bid.eta}</div>}
                   {bid.deliveryPerson?.rating && (
                     <div className="rating">
-                      <Rating
-                        value={parseFloat(bid.deliveryPerson.rating)}
-                        readOnly
-                        precision={0.1}
-                        size="small"
-                      /> ({bid.deliveryPerson.rating}/5)
+                      <Rating value={parseFloat(bid.deliveryPerson.rating)} readOnly precision={0.1} size="small" />
+                      ({bid.deliveryPerson.rating}/5)
                     </div>
                   )}
                 </div>
@@ -216,56 +248,10 @@ function CustomerDashboard() {
             </div>
           ))
         )}
+        <Button onClick={handleCancelRequest} color="error" variant="outlined" sx={{ mt: 2 }}>
+          Cancel Request
+        </Button>
       </div>
-    );
-  }
-
-  if (activeRequest?.selectedBid) {
-    return (
-      <Box
-        sx={{
-          p: 4,
-          maxWidth: 600,
-          margin: "0 auto",
-          textAlign: "center",
-          borderRadius: "12px",
-          boxShadow: 3,
-          backgroundColor: "#f9f9f9"
-        }}
-      >
-        <Typography variant="h4" color="primary" gutterBottom>
-          🚚 Delivery In Progress
-        </Typography>
-
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          Assigned to: <strong>{activeRequest.assignedDeliveryPerson?.username || "Loading..."}</strong>
-        </Typography>
-
-        <Typography variant="body1" sx={{ mt: 1 }}>
-          📞 Phone: {activeRequest.assignedDeliveryPerson?.phone || "Not Available"}
-        </Typography>
-
-        <Typography variant="body1" sx={{ mt: 1 }}>
-          💰 Offer Accepted: <strong>{activeRequest.selectedBid?.price || "—"} Rs</strong>
-        </Typography>
-
-        <Typography variant="body1" sx={{ mt: 1 }}>
-          ⏱ ETA: {activeRequest.selectedBid?.eta || "—"} minutes
-        </Typography>
-
-        <Typography
-          variant="body1"
-          sx={{
-            mt: 2,
-            fontWeight: "bold",
-            color: "#444",
-            borderTop: "1px solid #ccc",
-            pt: 2,
-          }}
-        >
-          Status: {activeRequest.status}
-        </Typography>
-      </Box>
     );
   }
 
@@ -281,7 +267,9 @@ function CustomerDashboard() {
       </div>
 
       <div className="past-deliveries-button-wrapper">
-        <button className="past-deliveries-button" onClick={() => navigate("/past-deliveries")}>📜 View Past Deliveries</button>
+        <button className="past-deliveries-button" onClick={() => navigate("/past-deliveries")}>
+          📜 View Past Deliveries
+        </button>
       </div>
 
       <div className="customer-dashboard-search-container">

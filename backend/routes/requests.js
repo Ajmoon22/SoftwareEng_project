@@ -37,7 +37,7 @@ router.get("/user/:userId", async (req, res) => {
       .sort({ createdAt: -1 })
       .populate({
         path: "selectedBid",
-        model: "Bid" // ✅ Ensures full price/eta/DP is loaded
+        model: "Bid"
       })
       .populate("assignedDeliveryPerson", "username phone");
 
@@ -78,7 +78,7 @@ router.get("/:requestId", async (req, res) => {
       .populate("assignedDeliveryPerson", "username phone")
       .populate({
         path: "selectedBid",
-        model: "Bid",
+        model: "Bid"
       });
 
     if (!request) return res.status(404).json({ msg: "Request not found" });
@@ -125,7 +125,7 @@ router.post("/select-bid", async (req, res) => {
     const populated = await Request.findById(request._id)
       .populate({
         path: "selectedBid",
-        model: "Bid", // ✅ ensure full bid is returned (price, eta)
+        model: "Bid"
       })
       .populate("assignedDeliveryPerson", "username phone");
 
@@ -161,7 +161,7 @@ router.patch("/:requestId/status", async (req, res) => {
   }
 });
 
-// Cancel request
+// Cancel request (only if bid not yet accepted)
 router.patch("/:requestId/cancel", async (req, res) => {
   const io = req.app.get("socketio");
   try {

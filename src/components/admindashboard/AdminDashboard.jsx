@@ -22,7 +22,7 @@ export default function AdminDashboard() {
     } catch (err) {
       toast.error("Failed to fetch users");
     }
-  }, [adminId]); // ✅ include adminId as dependency
+  }, [adminId]); 
 
   const toggleBlock = async (userId, block) => {
     try {
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadUsers();
-  }, [loadUsers]); // ✅ now clean, no warning
+  }, [loadUsers]); 
 
   return (
     <div className="admin-dashboard">

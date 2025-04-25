@@ -15,7 +15,7 @@ const requestSchema = new mongoose.Schema({
   customerPrice: { type: Number, required: true},
   status: {
     type: String,
-    enum: ["active", "confirmed", "picked up", "on the way", "completed"],
+    enum: ["active", "confirmed", "picked up", "on the way", "completed", "canceled"],
     default: "active"
   },
   bids: [bidSchema],

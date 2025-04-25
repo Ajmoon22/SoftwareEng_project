@@ -15,7 +15,7 @@ export default function ComplaintManager() {
     } catch (err) {
       toast.error("Failed to fetch complaints");
     }
-  }, [adminId]); // ✅
+  }, [adminId]); 
 
   const markResolved = async (complaintId) => {
     try {
@@ -36,7 +36,7 @@ export default function ComplaintManager() {
 
   useEffect(() => {
     fetchComplaints();
-  }, [fetchComplaints]); // ✅ no warning
+  }, [fetchComplaints]); 
 
   return (
     <div className="complaint-manager">

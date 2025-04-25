@@ -54,8 +54,8 @@ router.post("/login", async (req, res) => {
       _id: user._id,
       username: user.username,
       email,
-      isAdmin: user.isAdmin,     // ✅ include this
-      isBlocked: user.isBlocked  // ✅ optional if needed
+      isAdmin: user.isAdmin,     
+      isBlocked: user.isBlocked  
     } 
   });
 });

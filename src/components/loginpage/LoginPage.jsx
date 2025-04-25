@@ -39,11 +39,11 @@ function LoginPage() {
       // Store user info
       localStorage.setItem("userId", data.user._id);
       localStorage.setItem("username", data.user.username);
-      localStorage.setItem("isAdmin", data.user.isAdmin); // ✅ store isAdmin
+      localStorage.setItem("isAdmin", data.user.isAdmin); 
 
       // Redirect based on role
       if (data.user.isAdmin) {
-        navigate("/admin-dashboard"); // ✅ admin route
+        navigate("/admin-dashboard"); 
       } else {
         navigate("/select-role");
       }

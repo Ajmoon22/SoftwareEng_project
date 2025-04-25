@@ -24,7 +24,7 @@ router.post("/users", requireAdmin, async (req, res) => {
   }
 });
 
-// PATCH /api/admin/users/:userId/block → block/unblock user
+
 router.patch("/users/:userId/block", requireAdmin, async (req, res) => {
   const { block } = req.body;
   try {
