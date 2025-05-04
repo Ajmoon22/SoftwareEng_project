@@ -11,7 +11,7 @@ export default function AdminDashboard() {
 
   const loadUsers = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5005/api/admin/users", {
+      const res = await fetch("https://campuscart-backend.vercel.app/api/admin/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminId }),
@@ -26,7 +26,7 @@ export default function AdminDashboard() {
 
   const toggleBlock = async (userId, block) => {
     try {
-      const res = await fetch(`http://localhost:5005/api/admin/users/${userId}/block`, {
+      const res = await fetch(`https://campuscart-backend.vercel.app/api/admin/users/${userId}/block`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminId, block }),
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
 
   const promoteToAdmin = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:5005/api/admin/users/${userId}/promote`, {
+      const res = await fetch(`https://campuscart-backend.vercel.app/api/admin/users/${userId}/promote`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminId }),
